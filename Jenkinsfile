@@ -16,19 +16,6 @@ pipeline {
         fileExists 'Dockerfile'
       }
     }
-    stage('timestamp') {
-      steps {
-        timestamps()
-      }
-    }
-    stage('wait Condition') {
-      steps {
-        waitUntil() {
-          echo 'waiting'
-        }
-
-      }
-    }
     stage('test') {
       steps {
         sh './gralew test'
