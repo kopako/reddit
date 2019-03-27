@@ -16,9 +16,14 @@ pipeline {
         fileExists 'Dockerfile'
       }
     }
-    stage('test') {
+    stage('build jar') {
       steps {
-        sh './gralew test'
+        sh './gralew bootJar'
+      }
+    }
+    stage('build Docker') {
+      steps {
+        sh 'docker build -t kopako/reddit .'
       }
     }
   }
