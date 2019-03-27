@@ -1,30 +1,21 @@
 pipeline {
-  agent any
-  stages {
-    stage('ifUnix') {
-      steps {
-        isUnix()
-      }
+    agent any
+    stages {
+        stage('dockerfile exists') {
+            steps {
+                fileExists 'Dockerfile'
+            }
+        }
+        stage('build jar') {
+            steps {
+                sh './gradlew bootJar'
+            }
+        }
+        stage('build Docker') {
+            steps {
+                sh 'docker build -t kopako/reddit .'
+            }
+        }
     }
-    stage('dir') {
-      steps {
-        pwd()
-      }
-    }
-    stage('dockerfile exists') {
-      steps {
-        fileExists 'Dockerfile'
-      }
-    }
-    stage('build jar') {
-      steps {
-        sh './gralew bootJar'
-      }
-    }
-    stage('build Docker') {
-      steps {
-        sh 'docker build -t kopako/reddit .'
-      }
-    }
-  }
 }
+
