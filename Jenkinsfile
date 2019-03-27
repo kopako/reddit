@@ -8,7 +8,7 @@ pipeline {
         }
         stage('build jar') {
             steps {
-                sh './gradlew bootJar'
+                sh './gradlew --stacktrace bootJar'
             }
         }
         stage('build Docker') {
